@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
   const [data, setData] = useState([]);
@@ -7,7 +7,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => setData(data.page));
   });
-  return <div className="App">{data}</div>;
+  return <div>{data}</div>;
 }
 
 export default App;
