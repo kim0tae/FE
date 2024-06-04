@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Home from './routes/home';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home></Home>,
+    children: [],
+  },
+]);
 
 function App() {
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    fetch('http://localhost:8000')
-      .then((res) => res.json())
-      .then((data) => setData(data.page));
-  });
-  return <div>{data}</div>;
+  return <RouterProvider router={router} />;
 }
 
 export default App;
