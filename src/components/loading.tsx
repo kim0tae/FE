@@ -12,9 +12,11 @@ const ChangeScale = keyframes`
 `;
 
 const Wrapper = styled.div`
+  position: fixed;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 const Item = styled.div`
   background-color: pink;
@@ -36,15 +38,21 @@ const Item = styled.div`
     animation-delay: 0.4s;
   }
 `;
-
+const Dim = styled.div`
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+`;
 export default function LoadingScreen() {
+  const itemArray = [];
+  for (let i = 0; i <= 4; i++) {
+    itemArray.push(<Item />);
+  }
   return (
-    <Wrapper>
-      <Item></Item>
-      <Item></Item>
-      <Item></Item>
-      <Item></Item>
-      <Item></Item>
-    </Wrapper>
+    <>
+      <Dim />
+      <Wrapper>{itemArray}</Wrapper>
+    </>
   );
 }
