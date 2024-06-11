@@ -3,6 +3,8 @@ import { createGlobalStyle } from 'styled-components';
 import { styled } from 'styled-components';
 import Home from './routes/home';
 import reset from 'styled-reset';
+import { useState } from 'react';
+import LoadingScreen from './components/loading';
 
 const router = createBrowserRouter([
   {
@@ -31,10 +33,14 @@ const Wrapper = styled.div`
 `;
 
 function App() {
+  const [isLoading, setLoading] = useState(true);
+  const init = () => {
+    setLoading(false);
+  };
   return (
     <Wrapper>
       <GlobalStyles />
-      <RouterProvider router={router} />
+      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
     </Wrapper>
   );
 }
