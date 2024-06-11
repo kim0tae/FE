@@ -21,7 +21,7 @@ const Input = styled.input`
   padding: 10px 20px;
   border-radius: 50px;
   border: 1 px solid;
-  width: 200px;
+  width: 100%;
   font-size: 16px;
   &[type='submit'] {
     background-color: #1d9bf0;

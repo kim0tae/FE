@@ -5,6 +5,7 @@ import Home from './routes/home';
 import reset from 'styled-reset';
 import { useState, useEffect } from 'react';
 import LoadingScreen from './components/loading';
+import LayerPopup from './components/layer-popup';
 
 const router = createBrowserRouter([
   {
@@ -37,7 +38,7 @@ const Wrapper = styled.div`
 function App() {
   const [isLoading, setLoading] = useState(true);
   const init = () => {
-    setLoading(true);
+    setLoading(false);
   };
   useEffect(() => {
     init();
@@ -45,7 +46,7 @@ function App() {
   return (
     <Wrapper>
       <GlobalStyles />
-      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
+      <LayerPopup />
     </Wrapper>
   );
 }

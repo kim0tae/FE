@@ -40,7 +40,7 @@ const Item = styled.div`
 `;
 const Dim = styled.div`
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;
 `;
