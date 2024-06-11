@@ -63,17 +63,17 @@ const ContentTitle = styled.h1`
   font-weight: 600;
 `;
 
-export default function LayerPopup() {
+export default function LayerPopup({ contentInfo, check, cancel }) {
   return (
     <>
       <Dim />
       <Wrapper>
         <Popup>
           <ContentTitle> 알림 </ContentTitle>
-          <Content>Test Content</Content>
+          <Content>{contentInfo}</Content>
           <ButtonContainer>
-            <Button>취소</Button>
-            <Button>확인</Button>
+            <Button>{check}</Button>
+            <Button>{cancel}</Button>
           </ButtonContainer>
         </Popup>
       </Wrapper>

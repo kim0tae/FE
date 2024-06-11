@@ -46,7 +46,7 @@ function App() {
   return (
     <Wrapper>
       <GlobalStyles />
-      <LayerPopup />
+      <LayerPopup contentInfo={'Test'} check={'확인'} cancel={'취소'} />
     </Wrapper>
   );
 }
