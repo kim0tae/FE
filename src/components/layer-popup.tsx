@@ -1,10 +1,17 @@
 import { styled } from 'styled-components';
 
+interface LayerPopupProps {
+  contentInfo: string;
+  confirm: () => void;
+  cancel: () => void;
+}
+
 const Wrapper = styled.div`
   position: fixed;
   display: flex;
   top: 50%;
   left: 50%;
+  z-index: 999;
   transform: translate(-50%, -50%);
 `;
 
@@ -63,7 +70,7 @@ const ContentTitle = styled.h1`
   font-weight: 600;
 `;
 
-export default function LayerPopup({ contentInfo, check, cancel }) {
+export default function LayerPopup({ contentInfo, confirm, cancel }: LayerPopupProps) {
   return (
     <>
       <Dim />
@@ -72,8 +79,8 @@ export default function LayerPopup({ contentInfo, check, cancel }) {
           <ContentTitle> 알림 </ContentTitle>
           <Content>{contentInfo}</Content>
           <ButtonContainer>
-            <Button>{check}</Button>
-            <Button>{cancel}</Button>
+            <Button onClick={confirm}>확인</Button>
+            <Button onClick={cancel}>취소</Button>
           </ButtonContainer>
         </Popup>
       </Wrapper>

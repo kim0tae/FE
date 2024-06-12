@@ -41,9 +41,11 @@ export default function Home() {
       .then((data) => setData(data.page));
   });
   return (
-    <Wrapper>
-      <Button>{data}</Button>
-      <Input name="name" placeholder="" type="text" required />
-    </Wrapper>
+    <>
+      <Wrapper>
+        <Button>{data}</Button>
+        <Input name="name" placeholder="" type="text" required />
+      </Wrapper>
+    </>
   );
 }

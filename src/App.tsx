@@ -40,13 +40,21 @@ function App() {
   const init = () => {
     setLoading(false);
   };
+  const handleCheck = () => {
+    setLoading(false);
+  };
+
+  const handleCancel = () => {
+    setLoading(false);
+  };
+
   useEffect(() => {
-    init();
+    //init();
   }, []);
   return (
     <Wrapper>
       <GlobalStyles />
-      <LayerPopup contentInfo={'Test'} check={'확인'} cancel={'취소'} />
+      {isLoading && <LayerPopup contentInfo={'Test'} confirm={handleCheck} cancel={handleCancel} />}
     </Wrapper>
   );
 }
