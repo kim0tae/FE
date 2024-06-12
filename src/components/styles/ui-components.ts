@@ -18,9 +18,16 @@ export const ColumnWrapper = styled.div`
   padding: 50px 0px;
 `;
 
+export const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Input = styled.input`
   padding: 10px 20px;
-  border: 1px solid #d8d8d8;
+  box-shadow: none;
+  border: 1px solid #dadada;
   border-radius: 8px;
   width: 100%;
   font-size: 16px;

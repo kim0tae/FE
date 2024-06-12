@@ -13,13 +13,16 @@ const Form = styled.form`
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
   width: 100%;
 `;
 
 const ALink = styled.a`
   color: #17191d;
   text-decoration: none;
+`;
+
+const GnbLists = styled.ul`
+  display: flex;
 `;
 
 export default function CreateAccount() {
@@ -33,11 +36,19 @@ export default function CreateAccount() {
           <S.Input name="email" placeholder="Password" type="password" required />
           <S.Input type="submit" value={isLoading ? 'Loading...' : 'Login'} />
         </Form>
-        <S.RowWrapper>
-          <ALink href="/join">아이디 찾기</ALink>
-          <ALink href="/join">비밀번호 찾기</ALink>
-          <ALink href="/join">회원가입</ALink>
-        </S.RowWrapper>
+        <S.Wrapper>
+          <GnbLists>
+            <li>
+              <ALink href="/join">아이디 찾기</ALink>
+            </li>
+            <li>
+              <ALink href="/join">비밀번호 찾기</ALink>
+            </li>
+            <li>
+              <ALink href="/join">회원가입</ALink>
+            </li>
+          </GnbLists>
+        </S.Wrapper>
       </S.ColumnWrapper>
     </>
   );
