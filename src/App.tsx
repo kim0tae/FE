@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 import { styled } from 'styled-components';
 import Home from './routes/home';
 import reset from 'styled-reset';
+import Login from './routes/login';
 import { useState, useEffect } from 'react';
 import LoadingScreen from './components/loading';
 import LayerPopup from './components/layer-popup';
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
     path: '/',
     element: <Home></Home>,
     children: [],
+  },
+  {
+    path: '/login',
+    element: <Login />,
   },
 ]);
 
@@ -40,21 +45,13 @@ function App() {
   const init = () => {
     setLoading(false);
   };
-  const handleCheck = () => {
-    setLoading(false);
-  };
-
-  const handleCancel = () => {
-    setLoading(false);
-  };
-
   useEffect(() => {
-    //init();
+    init();
   }, []);
   return (
     <Wrapper>
       <GlobalStyles />
-      {isLoading && <LayerPopup contentInfo={'Test'} confirm={handleCheck} cancel={handleCancel} />}
+      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
     </Wrapper>
   );
 }

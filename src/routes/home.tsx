@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
   display: flex;
@@ -8,11 +9,11 @@ const Wrapper = styled.div`
 `;
 
 const Button = styled.button`
-  height: 30px;
-  width: 200px;
+  height: 35px;
+  width: 150px;
   border-radius: 5px;
   border: none;
-  background-color: #056ac9;
+  background-color: #1d9bf0;
   color: white;
   font-weight: 500;
 `;
@@ -20,12 +21,12 @@ const Button = styled.button`
 const Input = styled.input`
   padding: 10px 20px;
   border-radius: 50px;
-  border: 1 px solid;
+  border: none;
   width: 100%;
   font-size: 16px;
   &[type='submit'] {
     background-color: #1d9bf0;
-    color: black;
+    color: white;
     cursor: pointer;
     &:hover {
       opacity: 0.8;
@@ -34,17 +35,24 @@ const Input = styled.input`
 `;
 
 export default function Home() {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   useEffect(() => {
     fetch('http://localhost:8000')
       .then((res) => res.json())
       .then((data) => setData(data.page));
   });
+  const onClick = () => {
+    try {
+      navigate('/login');
+    } catch (error) {
+      //console.log(error.message);
+    }
+  };
   return (
     <>
       <Wrapper>
-        <Button>{data}</Button>
-        <Input name="name" placeholder="" type="text" required />
+        <Button onClick={onClick}>로그인</Button>
       </Wrapper>
     </>
   );
