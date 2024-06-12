@@ -28,7 +28,11 @@ const GlobalStyles = createGlobalStyle`
       overflow: hidden;
     }
     
-  }  
+  }
+  body {
+    font-family: 'Noto Sans KR';
+    letter-spacing: -0.05em;
+  }
 `;
 const Wrapper = styled.div`
   height: 100%;
