@@ -3,10 +3,11 @@ import { createGlobalStyle } from 'styled-components';
 import { styled } from 'styled-components';
 import Home from './routes/home';
 import reset from 'styled-reset';
-import Login from './routes/login';
+import Login from './routes/user/login';
 import { useState, useEffect } from 'react';
 import LoadingScreen from './components/loading';
 import LayerPopup from './components/layer-popup';
+import CreateAccount from './routes/user/join';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,11 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
+    children: [],
+  },
+  {
+    path: '/join',
+    element: <CreateAccount />,
   },
 ]);
 
