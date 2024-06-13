@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 import LoadingScreen from '../../components/loading';
 
 import * as S from '../../components/styles/ui-components';
+import LayerPopup from '../../components/layer-popup';
 
 const Form = styled.form`
   margin-top: 50px;
@@ -35,25 +36,25 @@ export default function CreateAccount() {
       setPassword(value);
     }
   };
+
+  const onConfirm = () => {};
+  const onCancel = () => {};
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isLoading || name === '' || email === '' || password === '') return;
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:8000/users/join', {
+      const response = await fetch('http://localhost:8000/join', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ name, email, password }),
       });
-
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        <LayerPopup contentInfo={'Error'} confirm={onConfirm} cancel={onCancel} />;
       }
-
-      const result = await response.json();
-      console.log(result);
+      console.log(response);
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
