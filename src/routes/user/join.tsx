@@ -48,7 +48,7 @@ export default function CreateAccount() {
 
   const onConfirm = () => {};
   const onCancel = () => {
-    setIsPopupActived(true);
+    setIsPopupActived(false);
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -70,8 +70,8 @@ export default function CreateAccount() {
       });
       if (!response.ok) {
         var data = await response.json();
-        setIsPopupActived(true);
         setContent(data.errorMessage);
+        setIsPopupActived(true);
       }
 
       console.log(data.success);
