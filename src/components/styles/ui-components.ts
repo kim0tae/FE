@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import { styled } from "styled-components";
 
 export const RowWrapper = styled.div`
   height: 100%;
@@ -31,6 +31,7 @@ export const Input = styled.input`
   border-radius: 8px;
   width: 100%;
   font-size: 16px;
+  outline: none;
   &[type='submit'] {
     background-color: #1d9bf0;
     color: white;
