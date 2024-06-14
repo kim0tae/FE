@@ -1,4 +1,4 @@
-import { styled, keyframes } from 'styled-components';
+import { styled, keyframes } from "styled-components";
 
 const ChangeScale = keyframes`
   0%,
@@ -45,14 +45,14 @@ const Dim = styled.div`
   height: 100%;
 `;
 export default function LoadingScreen() {
-  const itemArray = [];
-  for (let i = 0; i <= 4; i++) {
-    itemArray.push(<Item />);
-  }
-  return (
-    <>
-      <Dim />
-      <Wrapper>{itemArray}</Wrapper>
-    </>
-  );
+    const itemArray = [];
+    for (let i = 0; i <= 4; i++) {
+        itemArray.push(<Item key={i} />);
+    }
+    return (
+        <>
+            <Dim />
+            <Wrapper>{itemArray}</Wrapper>
+        </>
+    );
 }
