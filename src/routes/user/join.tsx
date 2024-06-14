@@ -23,6 +23,7 @@ export default function CreateAccount() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
   const [mobile, setMobile] = useState('');
   const [error, setError] = useState('');
 
@@ -38,6 +39,8 @@ export default function CreateAccount() {
       setPassword(value);
     } else if (name === 'mobile') {
       setMobile(value);
+    } else if (name === 'password2') {
+      setPassword2(value);
     }
   };
 
@@ -48,12 +51,12 @@ export default function CreateAccount() {
     if (isLoading || name === '' || email === '' || password === '') return;
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:8000/join', {
+      const response = await fetch('http://192.170.1.173:8000/join', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, email, password, mobile }),
+        body: JSON.stringify({ name, email, password, password2, mobile }),
       });
       if (!response.ok) {
         <LayerPopup contentInfo={'Error'} confirm={onConfirm} cancel={onCancel} />;
@@ -87,6 +90,14 @@ export default function CreateAccount() {
               placeholder="Password"
               type="password"
               value={password}
+              required
+            />
+            <S.Input
+              onChange={onChange}
+              name="password2"
+              placeholder="Password Confirm"
+              type="password"
+              value={password2}
               required
             />
             <S.Input onChange={onChange} name="mobile" placeholder="Mobile" type="text" value={mobile} required />
