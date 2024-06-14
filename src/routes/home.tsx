@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
   display: flex;
-  justfy-content: center;
+  justify-content: center;
   align-items: center;
 `;
 
