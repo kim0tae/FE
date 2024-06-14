@@ -26,7 +26,8 @@ export default function CreateAccount() {
   const [password2, setPassword2] = useState('');
   const [mobile, setMobile] = useState('');
   const [error, setError] = useState('');
-  const [isPopupActived, setIsPopupActived] = useState(false)
+  const [isPopupActived, setIsPopupActived] = useState(false);
+  const [content, setContent] = useState('');
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -46,7 +47,9 @@ export default function CreateAccount() {
   };
 
   const onConfirm = () => {};
-  const onCancel = () => {};
+  const onCancel = () => {
+    setIsPopupActived(true);
+  };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isLoading || id === '' || email === '' || password === '') return;
@@ -66,9 +69,11 @@ export default function CreateAccount() {
         }),
       });
       if (!response.ok) {
-		setIsPopupActived(true)
-    }
-      var data = await response.json();
+        var data = await response.json();
+        setIsPopupActived(true);
+        setContent(data.errorMessage);
+      }
+
       console.log(data.success);
       if (data) {
         //
@@ -88,7 +93,7 @@ export default function CreateAccount() {
 
   return (
     <>
-      {isPopupActived ?  <LayerPopup contentInfo={'Error'} confirm={onConfirm} cancel={onCancel} /> : null}
+      {isPopupActived ? <LayerPopup contentInfo={content} confirm={onConfirm} cancel={onCancel} /> : null}
       {isLoading ? <LoadingScreen /> : null}
       <S.ColumnWrapper>
         <Form onSubmit={onSubmit}>
