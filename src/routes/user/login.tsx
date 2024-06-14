@@ -66,7 +66,11 @@ export default function Login() {
       if (!response.ok) {
         <LayerPopup contentInfo={'Error'} confirm={onConfirm} cancel={onCancel} />;
       }
-      console.log(response);
+      var data = await response.json();
+      console.log(data.success);
+      if (data) {
+        // 프로필로 이동? 또는 /로 이동
+      }
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
