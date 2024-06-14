@@ -87,7 +87,7 @@ export default function CreateAccount() {
 
     return (
         <>
-            <LoadingScreen />
+            {isLoading ? <LoadingScreen /> : null}
             <S.ColumnWrapper>
                 <Form onSubmit={onSubmit}>
                     <S.Input
