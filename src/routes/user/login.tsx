@@ -81,7 +81,14 @@ export default function Login() {
         <Title>Sign in to myWeb</Title>
         <Form onSubmit={onSubmit}>
           <S.Input onChange={onChange} name="id" placeholder="Name" type="text" value={id} required />
-          <S.Input name="email" placeholder="Password" type="password" required />
+          <S.Input
+            onChange={onChange}
+            name="password"
+            placeholder="Password"
+            type="password"
+            value={password}
+            required
+          />
           <S.Input type="submit" value="Login" />
         </Form>
         <S.Wrapper>
