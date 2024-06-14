@@ -74,25 +74,22 @@ export default function CreateAccount() {
 
   return (
     <>
+      {isLoading ? <LoadingScreen /> : null}
       <S.ColumnWrapper>
-        {isLoading ? (
-          <LoadingScreen />
-        ) : (
-          <Form onSubmit={onSubmit}>
-            <S.Input onChange={onChange} name="name" placeholder="Name" type="text" value={name} required />
-            <S.Input onChange={onChange} name="email" placeholder="Email" type="email" value={email} required />
-            <S.Input
-              onChange={onChange}
-              name="password"
-              placeholder="Password"
-              type="password"
-              value={password}
-              required
-            />
-            <S.Input onChange={onChange} name="mobile" placeholder="Mobile" type="text" value={mobile} required />
-            <S.Input type="submit" value="Create Account" />
-          </Form>
-        )}
+        <Form onSubmit={onSubmit}>
+          <S.Input onChange={onChange} name="name" placeholder="Name" type="text" value={name} required />
+          <S.Input onChange={onChange} name="email" placeholder="Email" type="email" value={email} required />
+          <S.Input
+            onChange={onChange}
+            name="password"
+            placeholder="Password"
+            type="password"
+            value={password}
+            required
+          />
+          <S.Input onChange={onChange} name="mobile" placeholder="Mobile" type="text" value={mobile} required />
+          <S.Input type="submit" value="Create Account" />
+        </Form>
       </S.ColumnWrapper>
       {error && <div>Error: {error}</div>}
     </>
