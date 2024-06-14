@@ -23,7 +23,9 @@ export default function CreateAccount() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [mobile, setMobile] = useState('');
   const [error, setError] = useState('');
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },
@@ -34,6 +36,8 @@ export default function CreateAccount() {
       setEmail(value);
     } else if (name === 'password') {
       setPassword(value);
+    } else if (name === 'mobile') {
+      setMobile(value);
     }
   };
 
@@ -49,7 +53,7 @@ export default function CreateAccount() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, password, mobile }),
       });
       if (!response.ok) {
         <LayerPopup contentInfo={'Error'} confirm={onConfirm} cancel={onCancel} />;
@@ -58,8 +62,6 @@ export default function CreateAccount() {
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
-      } else {
-        setError('An unknown error occurred');
       }
     } finally {
       setLoading(false);
@@ -87,6 +89,7 @@ export default function CreateAccount() {
               value={password}
               required
             />
+            <S.Input onChange={onChange} name="mobile" placeholder="Mobile" type="text" value={mobile} required />
             <S.Input type="submit" value="Create Account" />
           </Form>
         )}
