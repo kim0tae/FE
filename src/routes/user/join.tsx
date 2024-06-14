@@ -67,7 +67,11 @@ export default function CreateAccount() {
       if (!response.ok) {
         <LayerPopup contentInfo={'Error'} confirm={onConfirm} cancel={onCancel} />;
       }
-      console.log(response);
+      var data = await response.json();
+      console.log(data.success);
+      if (data) {
+        //
+      }
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
