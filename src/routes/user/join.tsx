@@ -20,7 +20,7 @@ const Title = styled.h1`
 
 export default function CreateAccount() {
   const [isLoading, setLoading] = useState(false);
-  const [name, setName] = useState('');
+  const [id, setID] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
@@ -31,8 +31,8 @@ export default function CreateAccount() {
     const {
       target: { name, value },
     } = e;
-    if (name === 'name') {
-      setName(value);
+    if (name === 'id') {
+      setID(value);
     } else if (name === 'email') {
       setEmail(value);
     } else if (name === 'password') {
@@ -48,7 +48,7 @@ export default function CreateAccount() {
   const onCancel = () => {};
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (isLoading || name === '' || email === '' || password === '') return;
+    if (isLoading || id === '' || email === '' || password === '') return;
     try {
       setLoading(true);
       const response = await fetch('http://192.170.1.173:8000/join', {
@@ -56,7 +56,7 @@ export default function CreateAccount() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, email, password, password2, mobile }),
+        body: JSON.stringify({ id, email, password, password2, mobile }),
       });
       if (!response.ok) {
         <LayerPopup contentInfo={'Error'} confirm={onConfirm} cancel={onCancel} />;
@@ -82,7 +82,7 @@ export default function CreateAccount() {
           <LoadingScreen />
         ) : (
           <Form onSubmit={onSubmit}>
-            <S.Input onChange={onChange} name="name" placeholder="Name" type="text" value={name} required />
+            <S.Input onChange={onChange} name="id" placeholder="Name" type="text" value={id} required />
             <S.Input onChange={onChange} name="email" placeholder="Email" type="email" value={email} required />
             <S.Input
               onChange={onChange}
