@@ -69,7 +69,7 @@ const ContentTitle = styled.h1`
   font-weight: 600;
 `;
 
-export default function LayerPopup({ contentInfo, confirm }: LayerPopupProps) {
+export default function LayerPopup_confirm({ contentInfo, confirm }: LayerPopupProps) {
   return (
     <>
       <Dim />

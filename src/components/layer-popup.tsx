@@ -39,6 +39,8 @@ const Content = styled.p`
   align-items: center;
   width: 100%;
   height: 100%;
+  padding: 30px;
+  text-align: center;
 `;
 
 const Button = styled.button`

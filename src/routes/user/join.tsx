@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import LoadingScreen from '../../components/loading';
-
 import * as S from '../../components/styles/ui-components';
 import LayerPopup from '../../components/layer-popup';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Form = styled.form`
   margin-top: 50px;
@@ -18,49 +17,74 @@ const Form = styled.form`
 export default function CreateAccount() {
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
-  const [id, setID] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [password2, setPassword2] = useState('');
-  const [mobile, setMobile] = useState('');
+  const [formData, setFormData] = useState({
+    id: '',
+    email: '',
+    password: '',
+    password2: '',
+    mobile: '',
+  });
   const [error, setError] = useState('');
   const [isPopupActived, setIsPopupActived] = useState(false);
   const [content, setContent] = useState('');
+  const [isSignupSuccess, setIsSignupSuccess] = useState(false);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { name, value },
-    } = e;
+  const formatInfo = (name: string, value: string) => {
     if (name === 'id') {
-      setID(value);
-    } else if (name === 'email') {
-      setEmail(value);
-    } else if (name === 'password') {
-      setPassword(value);
+      const Regexhanguel = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+      while (Regexhanguel.test(value)) {
+        value = value.slice(0, -1);
+      }
     } else if (name === 'mobile') {
-      setMobile(value);
-    } else if (name === 'password2') {
-      setPassword2(value);
+      value = value.replace(/-/g, '');
     }
+    return value;
+  };
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    let formattedValue = value;
+    if (name === 'id') {
+      formattedValue = formatInfo(name, value);
+    } else if (name === 'mobile') {
+      formattedValue = formatInfo(name, value);
+    }
+    setFormData((prev) => ({
+      ...prev,
+      [name]: formattedValue,
+    }));
   };
 
   const onConfirm = () => {
-    navigate('/login');
+    if (isSignupSuccess) {
+      navigate('/login');
+    } else {
+      setIsPopupActived(false);
+    }
   };
+
   const onCancel = () => {
     setIsPopupActived(false);
   };
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const { id, email, password, password2, mobile } = formData;
 
-    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
-    if (!regex.test(password) || !regex.test(password2)) {
-      setContent('비밀번호 규칙에 맞게 입력해주세요,');
+    const emailRegex = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    if (!emailRegex.test(email)) {
+      setContent('올바른 이메일 형식을 입력해 주세요.');
+      setIsPopupActived(true);
+      return;
+    }
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
+    if (!passwordRegex.test(password) || !passwordRegex.test(password2)) {
+      setContent('비밀번호 규칙에 맞게 입력해 주세요. (특수문자, 숫자, 영문 포함 8자 이상)');
       setIsPopupActived(true);
       return;
     }
 
-    if (isLoading || id === '' || email === '' || password === '' || password2 === '') return;
+    if (isLoading || !id || !email || !password || !password2) return;
+
     try {
       setLoading(true);
       const response = await fetch('http://192.170.1.173:8000/join', {
@@ -76,17 +100,21 @@ export default function CreateAccount() {
           mobile,
         }),
       });
+
+      const data = await response.json();
       if (!response.ok) {
-        var data = await response.json();
         setContent(data.errorMessage);
-        setIsPopupActived(true);
+        setIsSignupSuccess(false);
       } else {
         setContent('회원가입이 완료 되었습니다.');
-        setIsPopupActived(true);
+        setIsSignupSuccess(true);
       }
+      setIsPopupActived(true);
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
+        setContent(error.message);
+        setIsSignupSuccess(false);
       }
     } finally {
       setLoading(false);
@@ -99,30 +127,51 @@ export default function CreateAccount() {
 
   return (
     <>
-      {isPopupActived ? <LayerPopup contentInfo={content} confirm={onConfirm} cancel={onCancel} /> : null}
-      {isLoading ? <LoadingScreen /> : null}
+      {isPopupActived && <LayerPopup contentInfo={content} confirm={onConfirm} cancel={onCancel} />}
+      {isLoading && <LoadingScreen />}
       <S.ColumnWrapper>
         <Form onSubmit={onSubmit}>
-          <S.Input onChange={onChange} name="id" placeholder="Name" type="text" value={id} required />
-          <S.Input onChange={onChange} name="email" placeholder="Email" type="email" value={email} required />
+          <S.Input
+            onChange={onChange}
+            name="id"
+            placeholder="아이디를 입력해 주세요."
+            type="text"
+            value={formData.id}
+            required
+          />
+          <S.Input
+            onChange={onChange}
+            name="email"
+            placeholder="이메일 주소를 입력해 주세요."
+            type="email"
+            value={formData.email}
+            required
+          />
           <S.Input
             onChange={onChange}
             name="password"
-            placeholder="Password"
+            placeholder="패스워드를 입력해 주세요."
             type="password"
-            value={password}
+            value={formData.password}
             required
           />
           <S.Input
             onChange={onChange}
             name="password2"
-            placeholder="Password Confirm"
+            placeholder="확인 패스워드를 입력해 주세요."
             type="password"
-            value={password2}
+            value={formData.password2}
             required
           />
-          <S.Input onChange={onChange} name="mobile" placeholder="Mobile" type="text" value={mobile} required />
-          <S.Input type="submit" value="Create Account" />
+          <S.Input
+            onChange={onChange}
+            name="mobile"
+            placeholder="휴대폰 번호('-') 제외하고 입력해 주세요."
+            type="text"
+            value={formData.mobile}
+            required
+          />
+          <S.Input type="submit" value="회원가입" />
         </Form>
       </S.ColumnWrapper>
     </>
