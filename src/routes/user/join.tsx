@@ -4,6 +4,7 @@ import LoadingScreen from '../../components/loading';
 
 import * as S from '../../components/styles/ui-components';
 import LayerPopup from '../../components/layer-popup';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Form = styled.form`
   margin-top: 50px;
@@ -14,11 +15,8 @@ const Form = styled.form`
   gap: 5px;
 `;
 
-const Title = styled.h1`
-  font-size: 42px;
-`;
-
 export default function CreateAccount() {
+  const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
   const [id, setID] = useState('');
   const [email, setEmail] = useState('');
@@ -46,7 +44,9 @@ export default function CreateAccount() {
     }
   };
 
-  const onConfirm = () => {};
+  const onConfirm = () => {
+    navigate('/login');
+  };
   const onCancel = () => {
     setIsPopupActived(false);
   };
@@ -54,7 +54,8 @@ export default function CreateAccount() {
     e.preventDefault();
 
     const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
-    if (regex.test(password)) {
+    console.log(regex.test(password));
+    if (!regex.test(password)) {
       setContent('비밀번호 다시 입력');
       setIsPopupActived(true);
       return;
@@ -80,11 +81,9 @@ export default function CreateAccount() {
         var data = await response.json();
         setContent(data.errorMessage);
         setIsPopupActived(true);
-      }
-
-      console.log(data.success);
-      if (data) {
-        //
+      } else {
+        setContent('회원가입이 완료 되었습니다.');
+        setIsPopupActived(true);
       }
     } catch (error) {
       if (error instanceof Error) {
