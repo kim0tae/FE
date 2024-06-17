@@ -52,7 +52,15 @@ export default function CreateAccount() {
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (isLoading || id === '' || email === '' || password === '') return;
+
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
+    if (regex.test(password)) {
+      setContent('비밀번호 다시 입력');
+      setIsPopupActived(true);
+      return;
+    }
+
+    if (isLoading || id === '' || email === '' || password === '' || password2 === '') return;
     try {
       setLoading(true);
       const response = await fetch('http://192.170.1.173:8000/join', {
@@ -119,7 +127,6 @@ export default function CreateAccount() {
           <S.Input type="submit" value="Create Account" />
         </Form>
       </S.ColumnWrapper>
-      {error && <div>Error: {error}</div>}
     </>
   );
 }
