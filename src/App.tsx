@@ -1,29 +1,44 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { createGlobalStyle } from "styled-components";
-import { styled } from "styled-components";
-import Home from "./routes/home";
-import reset from "styled-reset";
-import Login from "./routes/user/login";
-import { useState, useEffect } from "react";
-import LoadingScreen from "./components/loading";
-import LayerPopup from "./components/layer-popup";
-import CreateAccount from "./routes/user/join";
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components';
+import { styled } from 'styled-components';
+import Home from './routes/home';
+import reset from 'styled-reset';
+import Login from './routes/user/login';
+import { useState, useEffect } from 'react';
+import LoadingScreen from './components/loading';
+import LayerPopup from './components/layer-popup';
+import CreateAccount from './routes/user/join';
+import FindID from './routes/user/find-id';
+import FindPWD from './routes/user/find-pwd';
+import MyProfile from './routes/user/my-profile';
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Home></Home>,
-        children: [],
-    },
-    {
-        path: "/login",
-        element: <Login />,
-        children: [],
-    },
-    {
-        path: "/join",
-        element: <CreateAccount />,
-    },
+  {
+    path: '/',
+    element: <Home></Home>,
+    children: [],
+  },
+  {
+    path: '/login',
+    element: <Login />,
+    children: [],
+  },
+  {
+    path: '/join',
+    element: <CreateAccount />,
+  },
+  {
+    path: '/find-id',
+    element: <FindID />,
+  },
+  {
+    path: '/find-pwd',
+    element: <FindPWD />,
+  },
+  {
+    path: '/my-profile',
+    element: <MyProfile />,
+  },
 ]);
 
 const GlobalStyles = createGlobalStyle` 
@@ -49,19 +64,19 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-    const [isLoading, setLoading] = useState(true);
-    const init = () => {
-        setLoading(false);
-    };
-    useEffect(() => {
-        init();
-    }, []);
-    return (
-        <Wrapper>
-            <GlobalStyles />
-            {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
-        </Wrapper>
-    );
+  const [isLoading, setLoading] = useState(true);
+  const init = () => {
+    setLoading(false);
+  };
+  useEffect(() => {
+    init();
+  }, []);
+  return (
+    <Wrapper>
+      <GlobalStyles />
+      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
+    </Wrapper>
+  );
 }
 
 export default App;

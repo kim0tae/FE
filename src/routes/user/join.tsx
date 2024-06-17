@@ -54,9 +54,8 @@ export default function CreateAccount() {
     e.preventDefault();
 
     const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
-    console.log(regex.test(password));
-    if (!regex.test(password)) {
-      setContent('비밀번호 다시 입력');
+    if (!regex.test(password) || !regex.test(password2)) {
+      setContent('비밀번호 규칙에 맞게 입력해주세요,');
       setIsPopupActived(true);
       return;
     }

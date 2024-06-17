@@ -32,6 +32,7 @@ const linkStyle = {
 const List = styled.li``;
 
 export default function Login() {
+  const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
   const [id, setID] = useState('');
   const [password, setPassword] = useState('');
@@ -68,6 +69,7 @@ export default function Login() {
       }
       var data = await response.json();
       if (data.success) {
+        navigate('/my-profile');
       }
     } catch (error) {
       if (error instanceof Error) {

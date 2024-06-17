@@ -1,9 +1,9 @@
 import { styled } from 'styled-components';
 
-export default function FindPWD() {
+export default function MyProfile() {
   return (
     <>
-      <div>FIND PWD</div>
+      <div>myProfile</div>
     </>
   );
 }
