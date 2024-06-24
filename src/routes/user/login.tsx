@@ -69,7 +69,8 @@ export default function Login() {
       }
       var data = await response.json();
       if (data.success) {
-        navigate('/my-profile');
+        console.log(data);
+        navigate('/my-profile', { state: { id } });
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -82,18 +83,18 @@ export default function Login() {
   return (
     <>
       <S.ColumnWrapper>
-        <Title>Sign in to myWeb</Title>
+        <Title>로그인</Title>
         <Form onSubmit={onSubmit}>
-          <S.Input onChange={onChange} name="id" placeholder="Name" type="text" value={id} required />
+          <S.Input onChange={onChange} name="id" placeholder="ID를 입력해 주세요." type="text" value={id} required />
           <S.Input
             onChange={onChange}
             name="password"
-            placeholder="Password"
+            placeholder="비밀번호를 입력해 주세요."
             type="password"
             value={password}
             required
           />
-          <S.Input type="submit" value="Login" />
+          <S.Input type="submit" value="로그인" />
         </Form>
         <S.Wrapper>
           <UnOrderLists>
