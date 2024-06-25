@@ -70,7 +70,7 @@ export default function Login() {
       var data = await response.json();
       if (data.success) {
         console.log(data);
-        navigate('/my-profile', { state: { id } });
+        navigate(`/my-profile/${id}`, { state: { id } }); //2. ``을 통해 id 를 동적으로 전달합니다.
       }
     } catch (error) {
       if (error instanceof Error) {

@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     element: <FindPWD />,
   },
   {
-    path: '/my-profile',
+    path: '/my-profile/:id', // 1. ':사용할 Param 이름' 방식으로 전달합니다.
     element: <MyProfile />,
   },
 ]);
