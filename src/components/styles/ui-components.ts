@@ -32,6 +32,10 @@ export const Input = styled.input`
   width: 100%;
   font-size: 16px;
   outline: none;
+  &:focus {
+	 outline: 1px solid #2990e4;
+	 border: 1px solid transparent;
+   }
   &[type='submit'] {
     background-color: #1d9bf0;
     color: white;

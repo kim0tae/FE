@@ -50,6 +50,8 @@ const GlobalStyles = createGlobalStyle`
   ${reset};
   * {
     box-sizing: border-box;
+	font-family: 'Noto Sans KR';
+	letter-spacing: -0.05em;
     .scroll {
       overflow: hidden;
     }
