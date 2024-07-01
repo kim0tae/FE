@@ -11,6 +11,7 @@ import CreateAccount from './routes/user/join';
 import FindID from './routes/user/find-id';
 import FindPWD from './routes/user/find-pwd';
 import MyProfile from './routes/user/my-profile';
+import InsertBoard from './routes/contents/board';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: '/my-profile/:id', // 1. ':사용할 Param 이름' 방식으로 전달합니다.
     element: <MyProfile />,
+  },
+  {
+    path: '/contents/board',
+    element: <InsertBoard />,
   },
 ]);
 

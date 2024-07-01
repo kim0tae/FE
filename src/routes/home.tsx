@@ -24,10 +24,16 @@ export default function Home() {
       navigate('/login');
     } catch (error) {}
   };
+  const onBoard = () => {
+    try {
+      navigate('/contents/board');
+    } catch (error) {}
+  };
   return (
     <>
       <Wrapper>
         <Button onClick={onClick}>로그인</Button>
+        <Button onClick={onBoard}>게시글 작성</Button>
       </Wrapper>
     </>
   );
