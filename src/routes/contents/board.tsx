@@ -25,74 +25,71 @@ const TextArea = styled.textarea`
 `;
 
 export default function InsertBoard() {
-    const [formData, setFormData] = useState({
-        title: "",
-        contents: "",
+  const [formData, setFormData] = useState({
+    title: "",
+    contents: "",
+  });
+  const onChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    // const { name, value } = e.target;
+    // let formattedValue = value;
+    // if (name === 'title') {
+    //   formattedValue = value;
+    // }
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
     });
-    const onChange = (
-        e:
-            | React.ChangeEvent<HTMLInputElement>
-            | React.ChangeEvent<HTMLTextAreaElement>
-    ) => {
-        // const { name, value } = e.target;
-        // let formattedValue = value;
-        // if (name === 'title') {
-        //   formattedValue = value;
-        // }
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-    };
-    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        console.log(formData);
-        // const { title, contents } = formData;
-        try {
-            const response = await fetch(
-                "http://192.170.1.173:8000/board/upload",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `${localStorage.getItem("token")}`,
-                    },
-                    body: JSON.stringify(formData),
-                }
-            );
+  };
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(formData);
+    // const { title, contents } = formData;
+    try {
+      const response = await fetch("http://192.170.1.173:8000/board/upload", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(formData),
+      });
 
-            const data = await response.json();
-            if (!response.ok) {
-                console.log(data);
-            } else {
-              console.log(data)
-            }
-        } catch (error) {
-            if (error instanceof Error) {
-            }
-        } finally {
-        }
-    };
-    return (
-        <>
-            <S.ColumnWrapper>
-                <Form onSubmit={onSubmit}>
-                    <S.Input
-                        onChange={onChange}
-                        name="title"
-                        placeholder="제목을 입력해 주세요."
-                        type="text"
-                        value={formData.title}
-                        required
-                    />
-                    <TextArea
-                        name="contents"
-                        placeholder="게시글을 작성해주세요."
-                        onChange={onChange}
-                    />
-                    <S.Input type="submit" value="게시글 작성" />
-                </Form>
-            </S.ColumnWrapper>
-        </>
-    );
+      const data = await response.json();
+      if (!response.ok) {
+        console.log(data);
+      } else {
+        console.log(data);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+      }
+    } finally {
+    }
+  };
+  return (
+    <>
+      <S.ColumnWrapper>
+        <Form onSubmit={onSubmit}>
+          <S.Input
+            onChange={onChange}
+            name="title"
+            placeholder="제목을 입력해 주세요."
+            type="text"
+            value={formData.title}
+            required
+          />
+          <TextArea
+            name="contents"
+            placeholder="게시글을 작성해주세요."
+            onChange={onChange}
+          />
+          <S.Input type="submit" value="게시글 작성" />
+        </Form>
+      </S.ColumnWrapper>
+    </>
+  );
 }
