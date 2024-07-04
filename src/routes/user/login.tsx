@@ -2,8 +2,10 @@ import { useState } from "react";
 import { styled } from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import LayerPopup from "../../components/layer-popup";
+import axios from "axios";
 
 import * as S from "../../components/styles/ui-components";
+import { useMutation } from "react-query";
 
 const Title = styled.h1`
   font-size: 42px;
@@ -49,35 +51,76 @@ export default function Login() {
     };
     const onConfirm = () => {};
     const onCancel = () => {};
-    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (isLoading || id === "" || password === "") return;
-        try {
-            setLoading(true);
-            const response = await fetch("http://192.170.1.173:8000/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
+
+    // const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     if (isLoading || id === "" || password === "") return;
+    //     async () => {
+    //         const response = await axios.post(
+    //             "http://192.170.1.173:8000/login",
+    //             {
+    //                 id,
+    //                 password,
+    //             }
+    //         );
+    //         try {
+    //             setLoading(true);
+    //             if (response.data.success) {
+    //                 localStorage.setItem("token", response.data.jwtToken);
+    //                 console.log(response.data);
+    //                 navigate(`/my-profile/${id}`, { state: { id } }); //2. ``을 통해 id 를 동적으로 전달합니다.
+    //             }
+    //         } catch (error) {
+    //             if (error instanceof Error) {
+    //                 console.log(response.data);
+    //                 setError(error.message);
+    //             }
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
+    // };
+
+    const loginMutation = useMutation(
+        async ({ id, password }: { id: string; password: string }) => {
+            const response = await axios.post(
+                "http://192.170.1.173:8000/login",
+                {
                     id,
                     password,
-                }),
-            });
-            const data = await response.json();
-            if (data.success) {
-                localStorage.setItem("token", data.jwtToken);
-                console.log(data);
-                navigate(`/my-profile/${id}`, { state: { id } }); //2. ``을 통해 id 를 동적으로 전달합니다.
-            }
-        } catch (error) {
-            if (error instanceof Error) {
+                }
+            );
+            return response.data;
+        },
+        {
+            onSuccess: (data) => {
+                if (data.success) {
+                    localStorage.setItem("token", data.jwtToken);
+                    navigate(`/my-profile/${data.user._id}`, { state: { id } });
+                } else {
+                    setError("Login failed");
+                }
+            },
+            onError: (error: any) => {
                 setError(error.message);
-            }
-        } finally {
-            setLoading(false);
+            },
+            onSettled: () => {
+                setLoading(false);
+            },
+        }
+    );
+
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (id === "" || password === "") return;
+
+        try {
+            await loginMutation.mutateAsync({ id, password });
+        } catch (error) {
+            setError("Failed to log in");
         }
     };
+
     return (
         <>
             <S.ColumnWrapper>

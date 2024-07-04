@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 interface UserInfo {
     id: string;
@@ -15,21 +16,15 @@ export default function MyProfile() {
     const { id } = useParams<{ id: string }>(); //3 동적으로 :id를 사용하기
 
     const getUserInfo = async (id: string | undefined) => {
+        const response = await axios.post(
+            `http://192.170.1.173:8000/users/${id}`
+        );
         try {
-            const response = await fetch(
-                `http://192.170.1.173:8000/users/${id}`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
-            const data = await response.json();
-            setUserInfo(data.userInfo);
+            setUserInfo(response.data.user);
         } catch (e) {
             console.error(e);
         } finally {
+          
         }
     };
 
