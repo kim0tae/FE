@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column; /* 자식 요소를 세로로 배치 */
+  flex-direction: column;
   align-items: center;
 `;
 
@@ -17,7 +17,7 @@ const Button = styled.button`
   background-color: #1d9bf0;
   color: white;
   font-weight: 500;
-  margin: 10px; /* 버튼 사이에 간격 추가 */
+  margin: 10px;
 `;
 
 const ListItem = styled.div`
@@ -48,6 +48,7 @@ export default function Home() {
       try {
         const response = await axios.get('http://192.170.1.173:8000/');
         setData(response.data.boards);
+        console.log(response.data.boards);
       } catch (error) {
         console.error(error);
       }
@@ -62,9 +63,9 @@ export default function Home() {
         <Button onClick={onBoard}>게시글 작성</Button>
         {listData.map((item, index) => (
           <ListItem key={index}>
-            <h3>{item.title}</h3>
-            <p>{item.content}</p>
-            <small>Created At: {new Date(item.createdAt).toLocaleString()}</small>
+            <h3>제목 : {item.title}</h3>
+            <p>내용 : {item.contents}</p>
+            <small>작성일 : {new Date(item.createdAt).toLocaleString()}</small>
           </ListItem>
         ))}
       </Wrapper>
