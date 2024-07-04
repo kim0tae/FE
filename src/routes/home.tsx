@@ -48,7 +48,6 @@ export default function Home() {
       try {
         const response = await axios.get('http://192.170.1.173:8000/');
         setData(response.data.boards);
-        console.log(response.data.boards);
       } catch (error) {
         console.error(error);
       }
