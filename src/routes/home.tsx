@@ -43,6 +43,11 @@ export default function Home() {
       navigate('/contents/board');
     } catch (error) {}
   };
+  const onMyProfile = () => {
+    try {
+      navigate('/contents/board');
+    } catch (error) {}
+  };
   useEffect(() => {
     const getBoard = async () => {
       try {
@@ -60,10 +65,12 @@ export default function Home() {
       <Wrapper>
         <Button onClick={onClick}>로그인</Button>
         <Button onClick={onBoard}>게시글 작성</Button>
+        <Button onClick={onMyProfile}>내 프로필</Button>
         {listData.map((item, index) => (
           <ListItem key={index}>
             <h3>제목 : {item.title}</h3>
             <p>내용 : {item.contents}</p>
+            <small>작성자 : {item.author}</small>
             <small>작성일 : {new Date(item.createdAt).toLocaleString()}</small>
           </ListItem>
         ))}

@@ -47,12 +47,12 @@ const Button = styled.button`
   height: 40px;
   width: 50%;
   border-radius: 5px;
-  border: 1px solid #056ac9;
+  border: 1px solid #1074f3;
   background-color: #f0f5fa;
   color: #1074f3;
   font-weight: 600;
   &:nth-child(2) {
-    background-color: #056ac9;
+    background-color: #1074f3;
     color: white;
   }
 `;

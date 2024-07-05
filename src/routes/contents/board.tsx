@@ -1,6 +1,7 @@
-import { styled } from "styled-components";
-import * as S from "../../components/styles/ui-components";
-import React, { useState, useEffect } from "react";
+import { styled } from 'styled-components';
+import * as S from '../../components/styles/ui-components';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Form = styled.form`
   margin-top: 50px;
@@ -20,25 +21,17 @@ const TextArea = styled.textarea`
   resize: none;
   font-family: 'Noto Sans KR';
   &:focus {
-	outline: 1px solid #2990e4
+    outline: 1px solid #2990e4;
   }
 `;
 
 export default function InsertBoard() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    title: "",
-    contents: "",
+    title: '',
+    contents: '',
   });
-  const onChange = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    // const { name, value } = e.target;
-    // let formattedValue = value;
-    // if (name === 'title') {
-    //   formattedValue = value;
-    // }
+  const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -46,23 +39,22 @@ export default function InsertBoard() {
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
-    // const { title, contents } = formData;
     try {
-      const response = await fetch("http://192.170.1.173:8000/board/upload", {
-        method: "POST",
+      const response = await fetch('http://192.170.1.173:8000/board/upload', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `${localStorage.getItem("token")}`,
+          'Content-Type': 'application/json',
+          Authorization: `${localStorage.getItem('token')}`,
         },
         body: JSON.stringify(formData),
       });
 
       const data = await response.json();
+      console.log(data);
       if (!response.ok) {
-        console.log(data);
+        //
       } else {
-        console.log(data);
+        navigate('/');
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -82,11 +74,7 @@ export default function InsertBoard() {
             value={formData.title}
             required
           />
-          <TextArea
-            name="contents"
-            placeholder="게시글을 작성해주세요."
-            onChange={onChange}
-          />
+          <TextArea name="contents" placeholder="게시글을 작성해주세요." onChange={onChange} />
           <S.Input type="submit" value="게시글 작성" />
         </Form>
       </S.ColumnWrapper>
