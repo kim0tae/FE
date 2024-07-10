@@ -12,7 +12,6 @@ interface UserInfo {
 }
 
 interface BoardInfo {
-  map: any;
   _id: string;
   title: string;
   contents: string;

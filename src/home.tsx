@@ -2,23 +2,7 @@ import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Button = styled.button`
-  height: 35px;
-  width: 150px;
-  border-radius: 5px;
-  border: none;
-  background-color: #1d9bf0;
-  color: white;
-  font-weight: 500;
-  margin: 10px;
-`;
+import * as S from './components/styles/ui-components';
 
 const ListItem = styled.div`
   background-color: #f1f1f1;
@@ -62,19 +46,22 @@ export default function Home() {
 
   return (
     <>
-      <Wrapper>
-        <Button onClick={onClick}>로그인</Button>
-        <Button onClick={onBoard}>게시글 작성</Button>
-        <Button onClick={onMyProfile}>내 프로필</Button>
-        {listData.map((item, index) => (
-          <ListItem key={index}>
-            <h3>제목 : {item.title}</h3>
-            <p>내용 : {item.contents}</p>
-            <small>작성자 : {item.author}</small>
-            <small>작성일 : {new Date(item.createdAt).toLocaleString()}</small>
-          </ListItem>
-        ))}
-      </Wrapper>
+      <S.RowWrapper>
+        <S.Button onClick={onClick}>로그인</S.Button>
+        <S.Button onClick={onBoard}>게시글 작성</S.Button>
+        <S.Button onClick={onMyProfile}>내 프로필</S.Button>
+        <S.ColumnWrapper>
+          {listData.map((item, index) => (
+            <ListItem key={index}>
+              <h3>제목 : {item.title}</h3>
+              <p>내용 : {item.contents}</p>
+              <small>작성자 : {item.author}</small>
+              <br></br>
+              <small>작성일 : {new Date(item.createdAt).toLocaleString()}</small>
+            </ListItem>
+          ))}
+        </S.ColumnWrapper>
+      </S.RowWrapper>
     </>
   );
 }
