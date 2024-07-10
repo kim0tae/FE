@@ -76,3 +76,9 @@ export const Button = styled.button`
   font-weight: 500;
   margin: 10px;
 `;
+
+export const linkStyle = {
+  color: '#888',
+  textDecoration: 'none',
+  padding: '10px',
+};

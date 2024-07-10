@@ -25,12 +25,6 @@ const UnOrderLists = styled.ul`
   gap: 20px;
 `;
 
-const linkStyle = {
-  color: '#888',
-  textDecoration: 'none',
-  padding: '10px',
-};
-
 const List = styled.li``;
 
 export default function Login() {
@@ -108,17 +102,17 @@ export default function Login() {
         <S.Wrapper>
           <UnOrderLists>
             <List>
-              <Link style={linkStyle} target="_blank" to="/find-id">
+              <Link style={S.linkStyle} target="_blank" to="/find-id">
                 아이디 찾기
               </Link>
             </List>
             <List>
-              <Link style={linkStyle} target="_blank" to="/find-pwd">
+              <Link style={S.linkStyle} target="_blank" to="/find-pwd">
                 비밀번호 찾기
               </Link>
             </List>
             <List>
-              <Link style={linkStyle} target="_blank" to="/join">
+              <Link style={S.linkStyle} target="_blank" to="/join">
                 회원가입
               </Link>
             </List>
