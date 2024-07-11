@@ -3,7 +3,7 @@ import Home from '../home';
 import Login from '../views/user/login';
 import CreateAccount from '../views/user/join';
 import FindID from '../views/user/find-id';
-import FindPWD from '../views/user/find/find-pwd';
+import FindPWD from '../views/user/find-pwd';
 import MyProfile from '../views/user/my-profile';
 import InsertBoard from '../views/contents/board';
 
